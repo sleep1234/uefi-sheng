@@ -45,10 +45,11 @@ STATIC EFI_MEMORY_REGION_DESCRIPTOR gMemoryDescriptor[] = {
   {"hwfence-shbuf@e6440000", 0xE6440000, 0x002DD000, AddMem, MEM_RES, UNCACHEABLE, Reserv, UNCACHED_UNBUFFERED_XN},
   {"llcc-lpi@ff800000", 0xFF800000, 0x00600000, HobOnlyNoCacheSetting, MEM_RES, UNCACHEABLE, Reserv, UNCACHED_UNBUFFERED_XN},
 
-  // UEFI allocations (same geometry as meizu21 — both use FD_BASE 0xA7100000)
+  // UEFI allocations. FD is 0x500000 (5 MiB) so SiliciumPkg's full DXE driver
+  // set (DiskIo/Partition/Fat/Capsule) fits; the 0x300000 default overflowed
+  // FVMAIN (99.4%) and silently dropped the FAT driver that mounts the payload.
   {"ramoops / FD Reserved", 0xA7000000, 0x00100000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
-  {"UEFI FD", 0xA7100000, 0x00300000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
-  {"UEFI FD Reserved", 0xA7400000, 0x00200000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
+  {"UEFI FD", 0xA7100000, 0x00500000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK},
   {"Info Blk", 0xA7601000, 0x00001000, AddMem, SYS_MEM, SYS_MEM_CAP, RtData, WRITE_BACK_XN},
   {"MMU PageTables", 0xA7602000, 0x00003000, AddMem, SYS_MEM, SYS_MEM_CAP, BsData, WRITE_BACK_XN},
   {"Log Buffer", 0xA7605000, 0x00008000, AddMem, SYS_MEM, SYS_MEM_CAP, RtData, WRITE_BACK_XN},
