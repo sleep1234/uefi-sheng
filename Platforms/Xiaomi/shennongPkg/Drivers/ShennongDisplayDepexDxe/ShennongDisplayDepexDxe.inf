@@ -12,5 +12,8 @@
 [Packages]
   MdePkg/MdePkg.dec
 
+[LibraryClasses]
+  UefiDriverEntryPoint
+
 [Depex]
   TRUE
