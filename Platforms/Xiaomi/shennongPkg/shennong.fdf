@@ -112,4 +112,12 @@ READ_LOCK_STATUS   = TRUE
     }
   }
 
+  # Disk + FAT stack so that the 192 MiB payload FAT32 volume gets a
+  # SimpleFileSystemProtocol — UniXNU reads unixnu.toml through it.
+  # FVMAIN is auto-sized and already 99 % full; the outer compact FV
+  # has 4.6 MiB free, so these land here.
+  INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
+  INF MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
+  INF FatPkg/EnhancedFatDxe/Fat.inf
+
   !include SiliciumPkg/Common.fdf.inc
