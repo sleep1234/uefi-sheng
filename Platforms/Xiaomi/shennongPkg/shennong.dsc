@@ -121,3 +121,11 @@
   shennongPkg/Drivers/ShennongBootMemoryDxe/ShennongBootMemoryDxe.inf
   UniXNUPkg/Driver/UniXNURamDiskDxe/UniXNURamDiskDxe.inf
   shennongPkg/Drivers/ShennongKeyInputDxe/ShennongKeyInputDxe.inf
+
+  #
+  # Publish gEfiCapsuleArchProtocolGuid early (DEPEX only RuntimeArch) so the
+  # BDS capsule drivers load instead of tripping DxeMain's ASSERT. The stock
+  # CapsuleRuntimeDxe DEPEXs on VariableArch and loads too late. Same fix
+  # lonzzi/UniXNU-houji uses for SM8650.
+  #
+  shennongPkg/Drivers/NoCapsuleRuntimeDxe/NoCapsuleRuntimeDxe.inf
