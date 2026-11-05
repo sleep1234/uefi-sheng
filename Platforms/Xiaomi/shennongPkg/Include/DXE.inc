@@ -11,6 +11,7 @@ INF EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf
 INF ArmPkg/Drivers/TimerDxe/TimerDxe.inf
 INF MdeModulePkg/Universal/ResetSystemRuntimeDxe/ResetSystemRuntimeDxe.inf
 INF MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe.inf
+INF shennongPkg/Drivers/NoCapsuleRuntimeDxe/NoCapsuleRuntimeDxe.inf
 INF MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf
 INF MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf
 INF EmbeddedPkg/EmbeddedMonotonicCounter/EmbeddedMonotonicCounter.inf
