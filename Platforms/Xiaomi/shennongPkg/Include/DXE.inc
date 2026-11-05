@@ -19,9 +19,6 @@ INF EmbeddedPkg/RealTimeClockRuntimeDxe/RealTimeClockRuntimeDxe.inf
 INF MdeModulePkg/Universal/PrintDxe/PrintDxe.inf
 INF MdeModulePkg/Universal/DevicePathDxe/DevicePathDxe.inf
 INF MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf
-INF MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf
-INF MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
-INF FatPkg/EnhancedFatDxe/Fat.inf
 INF SiliciumPkg/Drivers/SimpleFbDxe/SimpleFbDxe.inf
 INF MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf
 INF MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf
