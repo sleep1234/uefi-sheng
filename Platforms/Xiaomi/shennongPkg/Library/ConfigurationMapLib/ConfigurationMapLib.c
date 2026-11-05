@@ -1,78 +1,58 @@
-/** @file
-  Shennong platform configuration map library.
-
-  Supplies the board configuration consumed by the DXE/PEI core (number of
-  CPUs, shared IMEM / DLOAD cookie addresses, etc).
-
-  All constants below are MEASURED on a real Xiaomi 14 Pro (23116PN5BC,
-  SN a59f9c76, HyperOS OS4.0.25.0.XEOCNXM) on 2026-11-05: extracted from the
-  stock `uefiplat.cfg` embedded in the `uefi_a` partition FV (text block
-  0x5103C..0x51F5D, uefi_a sha256 37be230e...). See docs/MEASURED-HARDWARE.md §5.
-
-  They were originally seeded from the meizu21 reference; the real device
-  confirms the values are identical, so the VERIFY markers are now removed.
-
-  IMPORTANT: the authoritative ConfigurationMapLib class contract (function
-  names/signatures) lives in the uefi-sheng tree (QcomPkg). If the build reports
-  unresolved symbols from this class, copy the real implementation from
-  loolooc/uefi-sheng Platforms/Meizu/meizu21Pkg/Library/ConfigurationMapLib
-  and keep these measured constants.
-**/
-#include <Uefi.h>
-#include <Library/DebugLib.h>
+// SPDX-License-Identifier: BSD-3-Clause
+// Xiaomi 14 Pro (shennong, SM8650) configuration map.
+// Values from the real device uefiplat.cfg extracted 2026-11-05 (SN a59f9c76).
 #include <Library/ConfigurationMapLib.h>
 
-// ---- uefiplat.cfg [Config] / [ConfigParameters] (实机) ----
-#define SHENNONG_CFG_VERSION            3
-#define SHENNONG_MAX_MEMORY_REGIONS    74
-#define SHENNONG_CONFIG_PARAM_COUNT    64
-#define SHENNONG_OS_TYPE_STRING        "LA"
+STATIC
+EFI_CONFIGURATION_ENTRY_DESCRIPTOR
+gConfigurationDescriptor[] = {
+  {"AllowNonPersistentVarsInRetail", 0x1},
+  {"DDRInfoNotifyFlag", 0x0},
+  {"DRAM_CLK_PERIOD_ADDR", 0x240BA050},
+  {"DetectRetailUserAttentionHotkey", 0x0},
+  {"DetectRetailUserAttentionHotkeyCode", 0x17},
+  {"DloadCookieAddr", 0x01FD9000},            // [MEASURED] uefiplat.cfg
+  {"DloadCookieValue", 0x10},                  // [MEASURED] uefiplat.cfg
+  {"EarlyInitCoreCnt", 0x2},                   // [MEASURED] uefiplat.cfg
+  {"EnableACPIFallback", 0x0},
+  {"EnableDisplayImageFv", 0x1},               // [MEASURED] uefiplat.cfg
+  {"EnableDisplayThread", 0x1},                // [MEASURED] uefiplat.cfg
+  {"EnableLogFsSyncInRetail", 0x0},
+  {"EnableMultiCoreFvDecompression", 0x0},
+  {"EnableMultiThreading", 0x1},               // [MEASURED] uefiplat.cfg
+  {"EnableOEMSetupAppInRetail", 0x0},
+  {"EnableSDHCSwitch", 0x1},
+  {"EnableShell", 0x1},
+  {"EnableUefiSecAppDebugLogDump", 0x0},
+  {"EnableUfsIOC", 0x1},                       // [MEASURED] uefiplat.cfg
+  {"EnableVariablePolicyEngine", 0x0},
+  {"LoadAutoImageInPILFlag", 0x1},
+  {"MaxCoreCnt", 0x8},
+  {"MaxLogFileSize", 0x400000},
+  {"NumActiveCores", 0x8},                     // [MEASURED] uefiplat.cfg
+  {"NumCpus", 0x8},                            // [MEASURED] uefiplat.cfg
+  {"PilSubsysDbgCookieAddr", 0x146AA6DC},
+  {"PilSubsysDbgCookieVal", 0x53444247},
+  {"PwrBtnShutdownFlag", 0x0},
+  {"Sdc1GpioConfigOff", 0xA00},
+  {"Sdc1GpioConfigOn", 0x1E92},
+  {"Sdc2GpioConfigOff", 0xA00},
+  {"Sdc2GpioConfigOn", 0x1E92},
+  {"SecPagePoolCount", 0x800},
+  {"SecurityFlag", 0xC4},                      // [MEASURED] uefiplat.cfg
+  {"SharedIMEMBaseAddr", 0x14680000},          // [MEASURED] uefiplat.cfg
+  {"ShmBridgememSize", 0xA00000},              // [MEASURED] uefiplat.cfg
+  {"USBHS1_Config", 0x0},
+  {"UefiMemUseThreshold", 0xE1},
+  {"UfsSmmuConfigForOtherBootDev", 0x1},      // [MEASURED] uefiplat.cfg
+  {"UsbFnIoRevNum", 0x10001}
+};
 
-#define SHENNONG_SHARED_IMEM          0x14680000ULL
-#define SHENNONG_DLOAD_COOKIE         0x01FD9000ULL
-#define SHENNONG_DLOAD_COOKIE_VALUE   0x10
-#define SHENNONG_NUM_CPUS             8
-#define SHENNONG_NUM_ACTIVE_CORES     8
-#define SHENNONG_SECURITY_FLAG        0xC4
-#define SHENNONG_SHM_BRIDGE_MEM_SIZE  0xA00000ULL
-#define SHENNONG_EARLY_INIT_CORE_CNT  2
-#define SHENNONG_DRAM_CLK_PERIOD_ADDR 0x240BA050ULL
-
-/**
-  Return the number of CPUs the platform exposes to the OS.
-  uefiplat.cfg: NumCpus = 8, NumActiveCores = 8 (measured).
-**/
-UINT32
-EFIAPI
-ConfigurationMapLibGetNumCpus (
-  VOID
-  )
+VOID
+GetConfigurationMap (
+  OUT EFI_CONFIGURATION_ENTRY_DESCRIPTOR **ConfigurationDescriptor,
+  OUT UINT8                               *ConfigurationDescriptorCount)
 {
-  return SHENNONG_NUM_CPUS;
-}
-
-/**
-  Return the shared IMEM base address.
-  uefiplat.cfg: SharedIMEMBaseAddr = 0x14680000 (measured).
-**/
-UINT64
-EFIAPI
-ConfigurationMapLibGetSharedImem (
-  VOID
-  )
-{
-  return SHENNONG_SHARED_IMEM;
-}
-
-/**
-  Return the DLOAD cookie address.
-  uefiplat.cfg: DloadCookieAddr = 0x01FD9000, DloadCookieValue = 0x10 (measured).
-**/
-UINT64
-EFIAPI
-ConfigurationMapLibGetDloadCookie (
-  VOID
-  )
-{
-  return SHENNONG_DLOAD_COOKIE;
+  *ConfigurationDescriptor      = gConfigurationDescriptor;
+  *ConfigurationDescriptorCount = ARRAY_SIZE (gConfigurationDescriptor);
 }

@@ -13,15 +13,3 @@
   ArmPkg/ArmPkg.dec
   MdePkg/MdePkg.dec
   SiliciumPkg/SiliciumPkg.dec
-
-[LibraryClasses]
-  BaseLib
-  DebugLib
-  FdtLib
-  HobLib
-
-[Guids]
-  gSiliciumEntryArgHobGuid                      ## CONSUMES
-
-[Depex]
-  TRUE
