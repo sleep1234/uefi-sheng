@@ -12,9 +12,5 @@
 [Packages]
   MdePkg/MdePkg.dec
 
-[LibraryClasses]
-  UefiBootServicesTableLib
-  UefiDriverEntryPoint
-
 [Depex]
   TRUE
