@@ -83,11 +83,12 @@ READ_LOCK_STATUS   = TRUE
   #  SECTION UI = "DeviceTreeBlob"
   #}
 
-  # QcomPkg/Extra.fdf.inc adds MassStorage.inf (not needed) before chaining to
-  # SiliciumPkg/Extra.fdf.inc.  Include the latter directly — it provides
-  # SetupBrowserDxe, BootManagerMenuApp, BootGraphicsResourceTableDxe,
-  # MsBootPolicy and BMP resources that BDS needs.
-  !include SiliciumPkg/Extra.fdf.inc
+  # SiliciumPkg/Extra.fdf.inc carries ~10 non-essential modules (UFPLoader,
+  # 3 BMP resources, BGRT, MsBootPolicy, SecureBoot…) that push FVMAIN to
+  # 99 %.  The only two needed by BDS are listed below; omitting the rest
+  # frees space for UniXNURamDiskDxe.
+  INF MdeModulePkg/Universal/SetupBrowserDxe/SetupBrowserDxe.inf
+  INF MdeModulePkg/Application/BootManagerMenuApp/BootManagerMenuApp.inf
 
 [FV.FVMAIN_COMPACT]
 FvAlignment        = 8
