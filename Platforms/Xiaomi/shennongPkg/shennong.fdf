@@ -37,7 +37,10 @@ FV = FVMAIN_COMPACT
 [FV.FvMain]
 FvNameGuid         = CD8D4C84-20AD-4073-8A28-3400FAE05941
 BlockSize          = 0x1000
-NumBlocks          = 0        # This FV gets compressed so make it just big enough
+NumBlocks          = 550      # ~2.20 MiB — auto (0) gave 1.89 MiB / 208 B free, not
+                              # enough for RamDiskDxe.  The outer FVMAIN_COMPACT has
+                              # 4.8 MiB free, so a 550-block FVMAIN (LZMA-compressed
+                              # to ~750 KiB) fits easily.
 FvAlignment        = 8
 ERASE_POLARITY     = 1
 MEMORY_MAPPED      = TRUE
