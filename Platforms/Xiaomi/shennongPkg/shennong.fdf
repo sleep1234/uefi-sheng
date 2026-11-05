@@ -82,7 +82,9 @@ READ_LOCK_STATUS   = TRUE
   #  SECTION UI = "DeviceTreeBlob"
   #}
 
-  !include QcomPkg/Extra.fdf.inc
+  # QcomPkg/Extra.fdf.inc only adds MassStorage.inf (not needed); commented out
+  # to free FV space for DiskIo/Partition/Fat drivers.
+  # !include QcomPkg/Extra.fdf.inc
 
 [FV.FVMAIN_COMPACT]
 FvAlignment        = 8
