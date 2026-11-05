@@ -11,14 +11,17 @@
 
 [Packages]
   MdePkg/MdePkg.dec
+  SiliciumPkg/SiliciumPkg.dec
 
 [LibraryClasses]
   BaseLib
+  BaseMemoryLib
   DebugLib
+  UefiBootServicesTableLib
   UefiDriverEntryPoint
 
 [Protocols]
   gEfiGraphicsOutputProtocolGuid                ## CONSUMES
 
 [Depex]
-  gEfiGraphicsOutputProtocolGuid
+  TRUE
