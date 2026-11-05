@@ -82,9 +82,11 @@ READ_LOCK_STATUS   = TRUE
   #  SECTION UI = "DeviceTreeBlob"
   #}
 
-  # QcomPkg/Extra.fdf.inc only adds MassStorage.inf (not needed); commented out
-  # to free FV space for DiskIo/Partition/Fat drivers.
-  # !include QcomPkg/Extra.fdf.inc
+  # QcomPkg/Extra.fdf.inc adds MassStorage.inf (not needed) before chaining to
+  # SiliciumPkg/Extra.fdf.inc.  Include the latter directly — it provides
+  # SetupBrowserDxe, BootManagerMenuApp, BootGraphicsResourceTableDxe,
+  # MsBootPolicy and BMP resources that BDS needs.
+  !include SiliciumPkg/Extra.fdf.inc
 
 [FV.FVMAIN_COMPACT]
 FvAlignment        = 8
