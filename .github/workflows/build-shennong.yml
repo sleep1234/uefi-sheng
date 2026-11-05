@@ -12,11 +12,23 @@ on:
           - RELEASE
 env:
   CI_BUILD: true
+  # DeviceBuild.py resolves PackagesPath[0] as $UNIXNU_ROOT/package.
+  # UniXNU/UniXNU ships package/UniXNUPkg (UniXNU.inf, UniXNUDxe,
+  # UniXNURamDiskDxe, UniXNULib) which shennong.dsc references.
+  UNIXNU_ROOT: ${{ github.workspace }}/unixnu
 jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+
+      - name: Check out UniXNU (provides package/UniXNUPkg)
+        uses: actions/checkout@v4
+        with:
+          repository: UniXNU/UniXNU
+          ref: main
+          path: unixnu
+          submodules: recursive
 
       - name: Setup build environment
         run: bash ./setup_env.sh -p apt
