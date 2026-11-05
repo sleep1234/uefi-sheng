@@ -33,6 +33,9 @@ jobs:
       - name: Setup build environment
         run: bash ./setup_env.sh -p apt
 
+      - name: Clean stale build cache (NumBlocks change needs fresh GenFv)
+        run: rm -rf Build/shennongPkg
+
       - name: Build SILICIUM_UEFI.fd for shennong
         run: python3 ./build_uefi.py -d shennong -r ${{ inputs.build_mode }} -c
 
