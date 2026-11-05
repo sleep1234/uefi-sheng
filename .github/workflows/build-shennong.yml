@@ -5,7 +5,7 @@ on:
       build_mode:
         description: 'EDK2 build mode'
         required: false
-        default: 'RELEASE'
+        default: 'DEBUG'
         type: choice
         options:
           - DEBUG
@@ -34,7 +34,7 @@ jobs:
         run: bash ./setup_env.sh -p apt
 
       - name: Build SILICIUM_UEFI.fd for shennong
-        run: python3 ./build_uefi.py -d shennong -r ${{ inputs.build_mode }} -c --update
+        run: python3 ./build_uefi.py -d shennong -r ${{ inputs.build_mode }} -c
 
       - name: Upload shennong UEFI images
         if: always()
