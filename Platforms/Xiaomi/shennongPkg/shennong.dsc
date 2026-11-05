@@ -121,10 +121,3 @@
   shennongPkg/Drivers/ShennongBootMemoryDxe/ShennongBootMemoryDxe.inf
   UniXNUPkg/Driver/UniXNURamDiskDxe/UniXNURamDiskDxe.inf
   shennongPkg/Drivers/ShennongKeyInputDxe/ShennongKeyInputDxe.inf
-
-  #
-  # Publish gEfiCapsuleArchProtocolGuid without firmware-update support so the
-  # BDS-stage capsule drivers (which DEPEX on it) load instead of tripping
-  # DxeMain's ASSERT. Same fix lonzzi/UniXNU-houji uses for SM8650.
-  #
-  shennongPkg/Drivers/NoCapsuleRuntimeDxe/NoCapsuleRuntimeDxe.inf
