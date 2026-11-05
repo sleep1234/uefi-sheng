@@ -72,10 +72,6 @@ READ_LOCK_STATUS   = TRUE
   INF UniXNUPkg/Application/UniXNU/UniXNU.inf
   INF UniXNUPkg/Driver/UniXNUDxe/UniXNUDxe.inf
 
-  # Publish gEfiCapsuleArchProtocolGuid so the BDS capsule drivers load
-  # (same fix lonzzi/UniXNU-houji uses for SM8650).
-  INF shennongPkg/Drivers/NoCapsuleRuntimeDxe/NoCapsuleRuntimeDxe.inf
-
   # IORT DT
   INF QcomPkg/Drivers/IortDtDxe/IortDtDxe.inf
 
