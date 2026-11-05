@@ -1,0 +1,31 @@
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = ShennongBootMemoryDxe
+  FILE_GUID                      = 7A1C3D9E-5B2F-4E8C-9A77-0C3F6D2B8E41
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = ShennongBootMemoryDxeEntry
+
+[Sources]
+  ShennongBootMemoryDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  SiliciumPkg/SiliciumPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  DxeServicesTableLib
+  FdtLib
+  HobLib
+  MemoryAllocationLib
+  UefiDriverEntryPoint
+
+[Guids]
+  gSiliciumEntryArgHobGuid                      ## CONSUMES
+
+[Depex]
+  TRUE

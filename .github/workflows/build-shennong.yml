@@ -1,0 +1,46 @@
+name: Build shennong UEFI
+on:
+  workflow_dispatch:
+    inputs:
+      build_mode:
+        description: 'EDK2 build mode'
+        required: false
+        default: 'DEBUG'
+        type: choice
+        options:
+          - DEBUG
+          - RELEASE
+env:
+  CI_BUILD: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup build environment
+        run: bash ./setup_env.sh -p apt
+
+      - name: Build SILICIUM_UEFI.fd for shennong
+        run: python3 ./build_uefi.py -d shennong -r ${{ inputs.build_mode }} -c
+
+      - name: Upload shennong UEFI images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shennong-uefi
+          path: |
+            Mu-shennong*.img
+            Mu-shennong*.bin
+            Build/shennongPkg/**/FV/SILICIUM_UEFI.fd
+          if-no-files-found: warn
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shennong-build-logs
+          path: |
+            Build/**/*.log
+            Build/**/*.txt
+          if-no-files-found: ignore

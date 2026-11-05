@@ -1,0 +1,24 @@
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = ShennongGopLogDxe
+  FILE_GUID                      = 5D9E2B7A-1C4F-4A8E-9B33-2F6D8E0C1A74
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = ShennongGopLogDxeEntry
+
+[Sources]
+  ShennongGopLogDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  DebugLib
+  UefiDriverEntryPoint
+
+[Protocols]
+  gEfiGraphicsOutputProtocolGuid                ## CONSUMES
+
+[Depex]
+  gEfiGraphicsOutputProtocolGuid

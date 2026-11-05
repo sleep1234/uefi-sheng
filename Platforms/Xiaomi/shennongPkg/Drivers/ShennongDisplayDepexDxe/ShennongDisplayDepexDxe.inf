@@ -1,0 +1,24 @@
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = ShennongDisplayDepexDxe
+  FILE_GUID                      = 2F4B8A1C-9C3E-4D7A-8B22-1E5F7C0D9A63
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = ShennongDisplayDepexDxeEntry
+
+[Sources]
+  ShennongDisplayDepexDxe.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  BaseLib
+  DebugLib
+  UefiDriverEntryPoint
+
+[Protocols]
+  gEfiGraphicsOutputProtocolGuid                ## CONSUMES
+
+[Depex]
+  gEfiGraphicsOutputProtocolGuid

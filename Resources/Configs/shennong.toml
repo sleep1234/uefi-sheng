@@ -1,0 +1,47 @@
+#
+# Xiaomi 14 Pro / shennong (SM8650 "pineapple") -- Boot Shim, FD and boot image configs
+#
+# This is the file upstream docs/handoff/ARTIFACTS.md 4.3 identified as the
+# missing piece: `unixnu bootimg` starts with
+#     load_toml(uefi/Resources/Configs/shennong.toml)
+# and GET .../Resources/Configs/shennong.toml?ref=sheng returns 404 in both
+# UniXNU/uefi-sheng and loolooc/uefi-sheng (re-checked 2026-11-05).
+#
+# Parameter provenance (all re-checked 2026-11-05 against the upstream tree):
+#   Resources/Configs/sheng.toml  @ loolooc/uefi-sheng:sheng
+#       header_version 0, base 0, kernel_offset 0x8000, tags_offset 0x1e00000,
+#       pagesize 4096, uefi_fd 0xA7100000/0x300000, gzip + append_dtb
+#   Resources/Configs/meizu21.toml @ loolooc/uefi-sheng:sheng
+#       ramdisk_offset 0x01000000
+#   board.toml [firmware] @ YX2748198202-lab/UniXNU-shennong
+#       FD_BASE 0xA7100000, FD_SIZE 0x300000, FD_BLOCKS 0x300
+#   docs/handoff/ARTIFACTS.md 4.2 (the known-good v0 template)
+#       kernel_addr 0x8000, ramdisk_addr 0x1000000, ramdisk_size 201326592,
+#       page 4096, header_version 0, kernel_size 2393623
+#
+# IMPORTANT: `Platforms/Xiaomi/shengPkg` in that tree is Xiaomi Pad 6S Pro /
+# SM8550 (see its PORTING.md), NOT shennong. Only the packaging parameters are
+# reused here. The board package for this device must be shennongPkg.
+#
+# header_version MUST stay 0: BootShim reads the v0 ramdisk_addr field to find
+# the 192 MiB payload FAT volume. With v4 it reports "no boot entry found".
+#
+
+[boot_shim]
+requires_kernel_header = true
+
+[uefi_fd]
+base = 0xA7100000
+size = 0x300000
+
+[boot_image_kernel]
+kernel_compression = "gzip"
+append_dtb         = true
+
+[boot_image]
+header_version = 0
+base           = 0x00000000
+kernel_offset  = 0x00008000
+ramdisk_offset = 0x01000000
+tags_offset    = 0x01e00000
+pagesize       = 4096
