@@ -13,12 +13,8 @@
   MdePkg/MdePkg.dec
 
 [LibraryClasses]
-  BaseLib
-  DebugLib
+  UefiBootServicesTableLib
   UefiDriverEntryPoint
 
-[Protocols]
-  gEfiGraphicsOutputProtocolGuid                ## CONSUMES
-
 [Depex]
-  gEfiGraphicsOutputProtocolGuid
+  TRUE
