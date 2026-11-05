@@ -60,6 +60,12 @@ STATIC EFI_MEMORY_REGION_DESCRIPTOR gMemoryDescriptor[] = {
   {"Kernel", 0xA8000000, 0x10000000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_BACK_XN},
   {"DXE Heap", 0xBAB00000, 0x0D1C0000, AddMem, SYS_MEM, SYS_MEM_CAP, Conv, WRITE_BACK_XN},
 
+  // ABL scan-out framebuffer. SimpleFbDxe publishes GOP from the region named
+  // "Display Reserved"; without it the UniXNU menu cannot be drawn (black
+  // screen). MEASURED from the real device dtbo_a overlay: splash_region at
+  // 0xFC400000, 0x2B00000 (43 MiB), enough for 1440x3200x32bpp (18.4 MiB).
+  {"Display Reserved", 0xFC400000, 0x02B00000, AddMem, MEM_RES, SYS_MEM_CAP, Reserv, WRITE_THROUGH_XN},
+
   // DRAM gaps between carveouts and the reserved-memory table
   {"DRAM gap 0xC7CC0000", 0xC7CC0000, 0x05040000, AddMem, SYS_MEM, SYS_MEM_CAP, Conv, WRITE_BACK_XN},
   {"DRAM gap 0xCCF80000", 0xCCF80000, 0x0B080000, AddMem, SYS_MEM, SYS_MEM_CAP, Conv, WRITE_BACK_XN},
